@@ -1,9 +1,4 @@
- 
-
-
-### Ex. No. :7
-## Date: 
-### Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
+ # Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
 
 ## Aim: 
 To configure internal ADC for   LPC2148 ARM 7  for interfacing LM35 temperature sensor.
@@ -190,37 +185,57 @@ Low-Impedance Output, 0.1 Ω for 1-mA Load
 ![image](https://user-images.githubusercontent.com/36288975/200110416-9cd78fa3-d1d3-45b5-a2e7-0f304bb32cd6.png)
 
 Figure -08 Circuit diagram of interfacing an LM35  with ADC input pin 
-
-## Kiel - Program 
  
 ## Tabulations and graph 
 Calculation of sensitivity 
 % of sensitivity is   S=  (T2-T1)/(A2-A1)*100
+![out](tb.png)
 
+![out](./g.png)
 
+## Kiel - Program: 
+```
+Name: Sudharshna Lakshmi S
+Register Number: 212221230110
 
+```
+```
+#include <lpc214x.h>
+#include "LCD.h"
+#include "ADC.h"
 
-SL NO	Temperature value in °C (T)	ADC VALUE (A)	Sensitivity 
-1			-
-2			
-3			
-4			
-5			
-6			
-7			
-8			
-9			
-10			
+unsigned int val;
+int main()
+{
+	IO1DIR = 0xffffffff;
+	IO0DIR = 0x00000000;
+	PINSEL0 = 0x300;
+	VPBDIV = 0x02;
+	lcd_init();
+	show(" ADC Value: ");
+	while(1)
+	{
+		cmd(0x8b);
+		val = adc(0,6);
+		dat((val/1000)+48);
+		dat(((val/100)%10)+48);
+		dat(((val/10)%10)+48);
+		dat((val%10)+48);
+	}
+}
+```
+## Output:
+### Before
+![out](1.png)
 
+### After
+![out](2.png)
 
- 
-Figure -09 graph between temperature values and ADC output 
-
+### Circuit Diagram
+![out](3.png)
 
 ## Result :
-Temperature sensor LM35 is interfaced to LPC2148 and its output is measured 
-
-## Output screen shots :
+Temperature sensor LM35 is interfaced to LPC2148 and its output is measured.
 
 
 
